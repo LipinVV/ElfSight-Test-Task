@@ -7,6 +7,8 @@ $largeDesktopDevice: 1440px;
 $black: #000000;
 $white: #fdfdfd;
 $grey: rgba(253, 253, 253, 0.5);
+$green: #65d9a5;
+$red: #DF0000;
 
 $normalBorderRadius: 8px;
 
@@ -20,10 +22,19 @@ $normalBorderRadius: 8px;
 .app__header {
   color: $white;
   margin-bottom: 30px;
+  font-family: get_schwiftyregular;
 }
 
 .app__control-buttons {
-  margin-top: 30px;
+  display: grid;
+
+  @media (min-width: $mobileDevice) {
+    margin-top: 10px;
+    max-width: $mobileDevice;
+    padding: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .app__control-button {
@@ -31,4 +42,13 @@ $normalBorderRadius: 8px;
   &:disabled {
     cursor: not-allowed;
   }
+}
+
+.app__control-current-page {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  text-align: center;
+  color: $white;
+  background-color: $white opacity(50);
 }

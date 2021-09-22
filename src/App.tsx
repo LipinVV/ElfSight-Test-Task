@@ -38,14 +38,14 @@ function App() {
                     type='button'
                     onClick={handleClickDecreasePageNumber}
                     disabled={currentPageNumber === 1}
-                >{'<= '}Previous page
+                >Previous page
                 </button>
                 <button
                     className='app__control-button'
                     type='button'
                     onClick={handleClickIncreasePageNumber}
                     disabled={currentPageNumber === 34}
-                >Next page{' =>'}</button>
+                >Next page</button>
                 {currentPageNumber === 34 &&
                 <button
                     className='app__control-button'
@@ -54,7 +54,7 @@ function App() {
                 >
                     To the first page
                 </button>}
-                <span>Current page is: {currentPageNumber}</span>
+                <span className='app__control-current-page'>current page is: {currentPageNumber}</span>
             </div>
         </div>
     );

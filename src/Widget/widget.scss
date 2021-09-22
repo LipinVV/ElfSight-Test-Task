@@ -1,15 +1,29 @@
 @import "src/App";
 
+.widget {
+  padding: 20px;
+  @media (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
 .widget__characters {
-  margin: 0 auto;
   @media (min-width: $mobileDevice) {
     display: grid;
     grid-gap: 10px;
     max-width: $mobileDevice;
-    //grid-template-columns: repeat(4, 1fr);
-    //grid-template-rows: repeat(5, 1fr);
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+
   }
   @media (min-width: $tabletDevice) {
     max-width: $tabletDevice;
@@ -17,6 +31,8 @@
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;
     grid-gap: 15px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
   @media (min-width: $largeDesktopDevice) {
     max-width: $largeDesktopDevice;
@@ -25,20 +41,25 @@
 }
 
 .widget__character {
-  background-color: $black;
-  border: 1px solid $white;
+  background-color: $white;
+  border: 2px solid $white;
   border-radius: $normalBorderRadius;
-  color: $white;
+  color: $black;
   display: grid;
   grid-gap: 10px;
   grid-template-rows: 0.1fr 0.4fr 0.1fr;
   grid-template-columns: 1fr;
+  @media (min-width: $mobileDevice) {
+
+  }
 }
 
 .widget__character-img {
   display: flex;
-  max-width: 100px;
-  max-height: 100px;
+  @media (min-width: $mobileDevice) {
+    max-height: 120px;
+    width: 100%;
+  }
 }
 
 .widget__character,
@@ -46,21 +67,36 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  position: relative;
+}
+
+.widget__character-info:first-child {
+  font-size: 10px;
+  text-align: center;
+  padding-top: 10px;
+  font-weight: 600;
 }
 
 .widget__character-info-button {
   cursor: pointer;
-  max-width: 150px;
-  min-height: 40px;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 14%;
   border: none;
-  border-radius: $normalBorderRadius;
+  border-bottom-left-radius: $normalBorderRadius;
+  border-bottom-right-radius: $normalBorderRadius;
+  margin: 0 auto;
+  background-color: $green;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .widget__filter {
-  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 30px;
+  flex-direction: column;
   @media (min-width: $desktopDevice) {
     min-height: 50px;
   }
@@ -68,4 +104,30 @@
 
 .widget__filter-options {
   display: flex;
+}
+
+.widget__filter-input {
+  width: 100%;
+  border-radius: $normalBorderRadius;
+  border: 2px solid $black;
+  padding-left: 10px;
+  min-height: 20px;
+  font-size: 15px;
+  &::placeholder {
+    color: $green;
+  }
+}
+
+.widget__filter-option {
+  cursor: pointer;
+}
+
+.widget__menu-button {
+  cursor: pointer;
+  border-radius: $normalBorderRadius;
+  border: 2px $green solid;
+  margin-bottom: 15px;
+  @media (min-width: $desktopDevice) {
+    width: 200px;
+  }
 }

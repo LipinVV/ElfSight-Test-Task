@@ -3,16 +3,24 @@ import './widget.scss';
 import {characterInterface} from "../interfaces";
 import {v4 as uuidv4} from 'uuid';
 import {fetchCharacters} from "../App";
-import { unstable_batchedUpdates } from 'react-dom'
 
-// It's possible to filter Characters by name, status, species, type and gender.
 
 export const Widget = ({pageSize}: any) => {
-
+// It's possible to filter Characters by name, status, species, type and gender.
+    // Dead', 'Alive', 'unknown'
+    // 'Male', 'unknown', 'Female'
+    // Human', 'Alien', 'Poopybutthole', 'Myth'
+    // 'Fish-Person', '', 'Cromulon', 'Self-aware arm'
     const [characters, setCharacters] = useState<characterInterface[]>([]);
     const [filteredCharacters, setFilteredCharacters] = useState<characterInterface[]>([]);
     const [checkedFilterOption, setCheckedFilterOption] = useState<string[]>([]);
     const filterOptions = ['name', 'status', 'species', 'type', 'gender', 'all'];
+    const [showFilterSection, setShowFilterSection] = useState(false);
+
+
+    useEffect(() => {
+        getAllData()
+    }, [pageSize])
 
     const filterHandler = (value: string, array: characterInterface[]) => {
         if (Boolean(value === 'name')) {
@@ -41,11 +49,11 @@ export const Widget = ({pageSize}: any) => {
             })
             setFilteredCharacters(sortingArray)
         }
-        return filteredCharacters
+        return array
     }
 
 
-    const getAllWords = async () => {
+    const getAllData = async () => {
         try {
             const allWordsFromServer = await fetchCharacters(pageSize)
             setCharacters(allWordsFromServer)
@@ -55,18 +63,7 @@ export const Widget = ({pageSize}: any) => {
         }
     }
 
-    useEffect(() => {
-        getAllWords().then(r => r)
-    }, [])
-
-    useEffect(() => {
-        fetchCharacters(pageSize).then(data => {
-            setCharacters(data)
-        })
-        // setFilteredCharacters(characters);
-    }, [pageSize, filteredCharacters]);
-
-    const filter = (name: string, allCharacters: characterInterface[]) => {
+    const inputFilterHandler = (name: string, allCharacters: characterInterface[]) => {
         const arrangedWords = allCharacters.filter((value: characterInterface) => {
             if (name === '') {
                 return value;
@@ -75,20 +72,26 @@ export const Widget = ({pageSize}: any) => {
                 value.name.toLowerCase().includes(name.toLowerCase())) {
                 return value;
             }
+            if (value.gender.toLowerCase().includes(name.toLowerCase()) ||
+                value.gender.toLowerCase().includes(name.toLowerCase())) {
+                return value;
+            }
         })
         setFilteredCharacters(arrangedWords)
     }
-    console.log('checkedFilterOption', checkedFilterOption)
 
     return (
         <div className='widget'>
-            <div className='widget__filter'>Filter
-                <input
-                    className='dictionary__input'
-                    type='text'
-                    placeholder='Type a name...'
-                    onChange={(evt) => filter(evt.target.value, characters)}
-                />
+            <button className='widget__menu-button' onClick={() => setShowFilterSection(prevState => !prevState)}>Quick search</button>
+            {showFilterSection &&<div className='widget__filter'>
+                <label className='widget__filter-label'>
+                    <input
+                        className='widget__filter-input'
+                        type='text'
+                        placeholder='Type a name...'
+                        onChange={(evt : React.ChangeEvent<HTMLInputElement>) => inputFilterHandler(evt.target.value, characters)}
+                    />
+                </label>
                 {filterOptions.map((option: string) => {
                     return (
                         <div key={uuidv4()}
@@ -105,7 +108,7 @@ export const Widget = ({pageSize}: any) => {
                         </div>
                     )
                 })}
-            </div>
+            </div>}
             <div className='widget__characters'>
                 {Boolean(filteredCharacters) && filteredCharacters.map((character: characterInterface) => {
                     return (
