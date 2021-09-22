@@ -96,11 +96,11 @@ export const Widget = ({pageSize}: any) => {
                     return (
                         <div key={uuidv4()}
                              className='widget__filter-options'>
-                            <label className='widget__filter-option'>
+                            <label      className={checkedFilterOption.includes(option) ? 'widget__filter-option widget__filter-option-checked' : 'widget__filter-option'}>
                                 <input
                                     value={option}
                                     onChange={(evt: React.ChangeEvent<HTMLInputElement>) => filterHandler(evt.target.value, characters)}
-                                    className='filtered-results-category-input'
+                                    className='widget__filter-checkbox'
                                     type='checkbox'
                                     checked={checkedFilterOption.includes(option)}
                                 />{option}
