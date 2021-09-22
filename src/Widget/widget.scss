@@ -1,0 +1,71 @@
+@import "src/App";
+
+.widget__characters {
+  margin: 0 auto;
+  @media (min-width: $mobileDevice) {
+    display: grid;
+    grid-gap: 10px;
+    max-width: $mobileDevice;
+    //grid-template-columns: repeat(4, 1fr);
+    //grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+    grid-gap: 15px;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+    grid-gap: 20px;
+  }
+}
+
+.widget__character {
+  background-color: $black;
+  border: 1px solid $white;
+  border-radius: $normalBorderRadius;
+  color: $white;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: 0.1fr 0.4fr 0.1fr;
+  grid-template-columns: 1fr;
+}
+
+.widget__character-img {
+  display: flex;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.widget__character,
+.widget__character-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.widget__character-info-button {
+  cursor: pointer;
+  max-width: 150px;
+  min-height: 40px;
+  margin: 0 auto;
+  border: none;
+  border-radius: $normalBorderRadius;
+}
+
+.widget__filter {
+  width: 100%;
+  display: flex;
+  margin-bottom: 30px;
+  @media (min-width: $desktopDevice) {
+    min-height: 50px;
+  }
+}
+
+.widget__filter-options {
+  display: flex;
+}

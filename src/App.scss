@@ -1,0 +1,34 @@
+$mobileDevice: 320px;
+$tabletDevice: 768px;
+$largeTabletDevice: 992px;
+$desktopDevice: 1024px;
+$largeDesktopDevice: 1440px;
+
+$black: #000000;
+$white: #fdfdfd;
+$grey: rgba(253, 253, 253, 0.5);
+
+$normalBorderRadius: 8px;
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $white;
+}
+
+.app__header {
+  color: $white;
+  margin-bottom: 30px;
+}
+
+.app__control-buttons {
+  margin-top: 30px;
+}
+
+.app__control-button {
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
