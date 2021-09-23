@@ -82,7 +82,7 @@ export const Widget = ({pageSize}: any) => {
     const popUpHandler = (index : number) => {
         setOpenedCard((prevState : number[]) => prevState.includes(index) ? prevState.filter((value : number) => value !== index) : [...prevState, index])
     }
-
+    console.log(filteredCharacters)
     return (
         <div className='widget'>
             <button className='widget__menu-button' onClick={() => setShowFilterSection(prevState => !prevState)}>Filter</button>
@@ -136,10 +136,15 @@ export const Widget = ({pageSize}: any) => {
                             {
                                 showStatus === true &&
                                 <ul className='widget__pop-up'>
-                                    <button onClick={() => popUpHandler(index)}>Close</button>
-                                    <li>{character.id}</li>
-                                    <li>{character.species}</li>
-                                    <li></li>
+                                    <li className='widget__pop-up-info'>Gender: {character.gender}</li>
+                                    <li className='widget__pop-up-info'>Location: {character.location.name}</li>
+                                    <li className='widget__pop-up-info'>Born: on {character.origin.name}</li>
+                                    <li className='widget__pop-up-info'>Species: {character.species}</li>
+                                    <li className='widget__pop-up-info'>Status: {character.status}</li>
+                                    <li className='widget__pop-up-info'>Was created: {character.created}</li>
+                                    <li className='widget__pop-up-info'>Type: {character.type === "" ? 'none' : character.type}</li>
+                                    <li className='widget__pop-up-info'>Participated in: {character.episode.length} {character.episode.length === 1 ? 'episode' : 'episodes'}</li>
+                                    <button className='widget__pop-up-button' onClick={() => popUpHandler(index)}>Close</button>
                                 </ul>
                             }
                         </ul>
