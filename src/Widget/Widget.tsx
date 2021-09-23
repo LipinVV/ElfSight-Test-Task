@@ -82,13 +82,13 @@ export const Widget = ({pageSize}: any) => {
 
     return (
         <div className='widget'>
-            <button className='widget__menu-button' onClick={() => setShowFilterSection(prevState => !prevState)}>Quick search</button>
+            <button className='widget__menu-button' onClick={() => setShowFilterSection(prevState => !prevState)}>Filter</button>
             {showFilterSection &&<div className='widget__filter'>
                 <label className='widget__filter-label'>
                     <input
                         className='widget__filter-input'
                         type='text'
-                        placeholder='Type a name...'
+                        placeholder='type a name...'
                         onChange={(evt : React.ChangeEvent<HTMLInputElement>) => inputFilterHandler(evt.target.value, characters)}
                     />
                 </label>

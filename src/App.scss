@@ -34,14 +34,27 @@ $normalBorderRadius: 8px;
     padding: 20px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    grid-gap: 15px;
   }
 }
 
 .app__control-button {
   cursor: pointer;
+  border-radius: $normalBorderRadius;
+  border: none;
+  background-color: $green;
   &:disabled {
     cursor: not-allowed;
+    background-color: $grey;
   }
+  @media (min-width: $mobileDevice) {
+    min-width: 110px;
+    min-height: 25px;
+  }
+}
+
+.app__control-button-return {
+  background-color: $white;
 }
 
 .app__control-current-page {

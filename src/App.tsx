@@ -48,7 +48,7 @@ function App() {
                 >Next page</button>
                 {currentPageNumber === 34 &&
                 <button
-                    className='app__control-button'
+                    className='app__control-button app__control-button-return'
                     type='button'
                     onClick={() => setCurrentPageNumber(1)}
                 >
