@@ -38,7 +38,7 @@ export const Widget = ({pageSize}: any) => {
         }
         if (Boolean(value === 'status')) {
             let sortingArray = array.sort((productA: characterInterface, productB: characterInterface) => {
-                return productB.name.localeCompare(productA.name)
+                return productB.status.localeCompare(productA.status)
             })
             setCheckedFilterOption((prevState: string[]) => {
                 if (prevState.includes(value)) {
@@ -52,7 +52,6 @@ export const Widget = ({pageSize}: any) => {
         return array
     }
 
-
     const getAllData = async () => {
         try {
             const allWordsFromServer = await fetchCharacters(pageSize)
@@ -63,21 +62,25 @@ export const Widget = ({pageSize}: any) => {
         }
     }
 
-    const inputFilterHandler = (name: string, allCharacters: characterInterface[]) => {
-        const arrangedWords = allCharacters.filter((value: characterInterface) => {
-            if (name === '') {
+    const inputFilterHandler = (inputValue: string, allCharacters: characterInterface[]) => {
+        const filteredArray = allCharacters.filter((value: characterInterface) => {
+            if (inputValue === '') {
                 return value;
             }
-            if (value.name.toLowerCase().includes(name.toLowerCase()) ||
-                value.name.toLowerCase().includes(name.toLowerCase())) {
+            if (value.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                value.name.toLowerCase().includes(inputValue.toLowerCase())) {
                 return value;
             }
-            if (value.gender.toLowerCase().includes(name.toLowerCase()) ||
-                value.gender.toLowerCase().includes(name.toLowerCase())) {
+            if (value.gender.toLowerCase().includes(inputValue.toLowerCase()) ||
+                value.gender.toLowerCase().includes(inputValue.toLowerCase())) {
                 return value;
             }
         })
-        setFilteredCharacters(arrangedWords)
+        setFilteredCharacters(filteredArray)
+    }
+    const [openedCard, setOpenedCard] = useState<any>([])
+    const popUpHandler = (index : number) => {
+        setOpenedCard((prevState : number[]) => prevState.includes(index) ? prevState.filter((value : number) => value !== index) : [...prevState, index])
     }
 
     return (
@@ -110,7 +113,11 @@ export const Widget = ({pageSize}: any) => {
                 })}
             </div>}
             <div className='widget__characters'>
-                {Boolean(filteredCharacters) && filteredCharacters.map((character: characterInterface) => {
+                {Boolean(filteredCharacters) && filteredCharacters.map((character: characterInterface, index) => {
+                    let showStatus = false
+                    if (openedCard.includes(index)) {
+                        showStatus = true;
+                    }
                     return (
                         <ul
                             key={uuidv4()}
@@ -123,8 +130,18 @@ export const Widget = ({pageSize}: any) => {
                             <button
                                 className='widget__character-info-button'
                                 type='button'
+                                onClick={() => popUpHandler(index)}
                             >Show information
                             </button>
+                            {
+                                showStatus === true &&
+                                <ul className='widget__pop-up'>
+                                    <button onClick={() => popUpHandler(index)}>Close</button>
+                                    <li>{character.id}</li>
+                                    <li>{character.species}</li>
+                                    <li></li>
+                                </ul>
+                            }
                         </ul>
                     )
                 })}
